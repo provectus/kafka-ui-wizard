@@ -1,11 +1,11 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-412f2070.js",
+    "file": "start-9c39c1d6.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_index-3e726935.js",
-      "_paths-a527f18e.js",
+      "_index-2c76f9aa.js",
+      "_paths-e6179b29.js",
       "_singletons-d1fb5791.js"
     ],
     "dynamicImports": [
@@ -17,78 +17,81 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-d5f32bdb.js",
+    "file": "pages/__layout.svelte-d71277e9.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-3e726935.js",
-      "_paths-a527f18e.js",
+      "_index-2c76f9aa.js",
+      "_paths-e6179b29.js",
       "_navigation-3f1ea447.js",
-      "_clustersStore-086e0d01.js",
+      "_clustersStore-4889a4fa.js",
       "_singletons-d1fb5791.js"
     ],
     "css": [
       "assets/pages/__layout.svelte-1171d844.css"
+    ],
+    "assets": [
+      "assets/GitHub-Mark-120px-plus-78981108.png"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "error.svelte-859446df.js",
+    "file": "error.svelte-abae3ac0.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-3e726935.js"
+      "_index-2c76f9aa.js"
     ]
   },
   "src/routes/clusters/[clusterId].svelte": {
-    "file": "pages/clusters/_clusterId_.svelte-19fabff8.js",
+    "file": "pages/clusters/_clusterId_.svelte-a3893768.js",
     "src": "src/routes/clusters/[clusterId].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-3e726935.js",
-      "_paths-a527f18e.js",
-      "_clustersStore-086e0d01.js",
-      "_BackButton-cc8f845f.js",
+      "_index-2c76f9aa.js",
+      "_paths-e6179b29.js",
+      "_clustersStore-4889a4fa.js",
+      "_BackButton-10577e72.js",
       "_navigation-3f1ea447.js",
-      "_Hero-8f3cf985.js",
+      "_Hero-f4b0ab35.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/clusters/new.svelte": {
-    "file": "pages/clusters/new.svelte-17ad2bee.js",
+    "file": "pages/clusters/new.svelte-a9293bc4.js",
     "src": "src/routes/clusters/new.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-3e726935.js",
+      "_index-2c76f9aa.js",
       "_navigation-3f1ea447.js",
-      "_paths-a527f18e.js",
-      "_BackButton-cc8f845f.js",
-      "_clustersStore-086e0d01.js",
+      "_paths-e6179b29.js",
+      "_BackButton-10577e72.js",
+      "_clustersStore-4889a4fa.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-b6a72844.js",
+    "file": "pages/index.svelte-ed27b6fc.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-3e726935.js",
-      "_Hero-8f3cf985.js",
-      "_clustersStore-086e0d01.js",
-      "_paths-a527f18e.js"
+      "_index-2c76f9aa.js",
+      "_Hero-f4b0ab35.js",
+      "_clustersStore-4889a4fa.js",
+      "_paths-e6179b29.js"
     ]
   },
-  "_index-3e726935.js": {
-    "file": "chunks/index-3e726935.js"
+  "_index-2c76f9aa.js": {
+    "file": "chunks/index-2c76f9aa.js"
   },
-  "_paths-a527f18e.js": {
-    "file": "chunks/paths-a527f18e.js",
+  "_paths-e6179b29.js": {
+    "file": "chunks/paths-e6179b29.js",
     "imports": [
-      "_index-3e726935.js"
+      "_index-2c76f9aa.js"
     ]
   },
   "_singletons-d1fb5791.js": {
@@ -100,26 +103,26 @@
       "_singletons-d1fb5791.js"
     ]
   },
-  "_clustersStore-086e0d01.js": {
-    "file": "chunks/clustersStore-086e0d01.js",
+  "_clustersStore-4889a4fa.js": {
+    "file": "chunks/clustersStore-4889a4fa.js",
     "imports": [
-      "_paths-a527f18e.js"
+      "_paths-e6179b29.js"
     ]
   },
-  "_BackButton-cc8f845f.js": {
-    "file": "chunks/BackButton-cc8f845f.js",
+  "_BackButton-10577e72.js": {
+    "file": "chunks/BackButton-10577e72.js",
     "imports": [
-      "_index-3e726935.js",
+      "_index-2c76f9aa.js",
       "_navigation-3f1ea447.js",
-      "_clustersStore-086e0d01.js",
-      "_paths-a527f18e.js"
+      "_clustersStore-4889a4fa.js",
+      "_paths-e6179b29.js"
     ]
   },
-  "_Hero-8f3cf985.js": {
-    "file": "chunks/Hero-8f3cf985.js",
+  "_Hero-f4b0ab35.js": {
+    "file": "chunks/Hero-f4b0ab35.js",
     "imports": [
-      "_index-3e726935.js",
-      "_paths-a527f18e.js"
+      "_index-2c76f9aa.js",
+      "_paths-e6179b29.js"
     ]
   }
 }
