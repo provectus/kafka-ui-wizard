@@ -1,11 +1,11 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-04612b61.js",
+    "file": "start-6e63b8da.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_index-28dc9a87.js",
-      "_paths-3b0ebf9b.js",
+      "_index-3e726935.js",
+      "_paths-a527f18e.js",
       "_singletons-d1fb5791.js"
     ],
     "dynamicImports": [
@@ -17,78 +17,78 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-dd184590.js",
+    "file": "pages/__layout.svelte-d1e80ce5.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-28dc9a87.js",
-      "_paths-3b0ebf9b.js",
+      "_index-3e726935.js",
+      "_paths-a527f18e.js",
       "_navigation-3f1ea447.js",
-      "_clustersStore-77246730.js",
+      "_clustersStore-fd6da400.js",
       "_singletons-d1fb5791.js"
     ],
     "css": [
-      "assets/pages/__layout.svelte-ab423ae8.css"
+      "assets/pages/__layout.svelte-1171d844.css"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "error.svelte-49abe1ab.js",
+    "file": "error.svelte-859446df.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-28dc9a87.js"
+      "_index-3e726935.js"
     ]
   },
   "src/routes/clusters/[clusterId].svelte": {
-    "file": "pages/clusters/_clusterId_.svelte-7c224f5e.js",
+    "file": "pages/clusters/_clusterId_.svelte-03b935ee.js",
     "src": "src/routes/clusters/[clusterId].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-28dc9a87.js",
-      "_paths-3b0ebf9b.js",
-      "_clustersStore-77246730.js",
-      "_BackButton-f49c64a1.js",
+      "_index-3e726935.js",
+      "_paths-a527f18e.js",
+      "_clustersStore-fd6da400.js",
+      "_BackButton-5ef14a72.js",
       "_navigation-3f1ea447.js",
-      "_Hero-5df4d0f4.js",
+      "_Hero-8f3cf985.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/clusters/new.svelte": {
-    "file": "pages/clusters/new.svelte-440751b8.js",
+    "file": "pages/clusters/new.svelte-5f7dd3f3.js",
     "src": "src/routes/clusters/new.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-28dc9a87.js",
+      "_index-3e726935.js",
       "_navigation-3f1ea447.js",
-      "_paths-3b0ebf9b.js",
-      "_BackButton-f49c64a1.js",
-      "_clustersStore-77246730.js",
+      "_paths-a527f18e.js",
+      "_BackButton-5ef14a72.js",
+      "_clustersStore-fd6da400.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-a515473f.js",
+    "file": "pages/index.svelte-c08bd9d2.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-28dc9a87.js",
-      "_Hero-5df4d0f4.js",
-      "_clustersStore-77246730.js",
-      "_paths-3b0ebf9b.js"
+      "_index-3e726935.js",
+      "_Hero-8f3cf985.js",
+      "_clustersStore-fd6da400.js",
+      "_paths-a527f18e.js"
     ]
   },
-  "_index-28dc9a87.js": {
-    "file": "chunks/index-28dc9a87.js"
+  "_index-3e726935.js": {
+    "file": "chunks/index-3e726935.js"
   },
-  "_paths-3b0ebf9b.js": {
-    "file": "chunks/paths-3b0ebf9b.js",
+  "_paths-a527f18e.js": {
+    "file": "chunks/paths-a527f18e.js",
     "imports": [
-      "_index-28dc9a87.js"
+      "_index-3e726935.js"
     ]
   },
   "_singletons-d1fb5791.js": {
@@ -100,26 +100,26 @@
       "_singletons-d1fb5791.js"
     ]
   },
-  "_clustersStore-77246730.js": {
-    "file": "chunks/clustersStore-77246730.js",
+  "_clustersStore-fd6da400.js": {
+    "file": "chunks/clustersStore-fd6da400.js",
     "imports": [
-      "_paths-3b0ebf9b.js"
+      "_paths-a527f18e.js"
     ]
   },
-  "_BackButton-f49c64a1.js": {
-    "file": "chunks/BackButton-f49c64a1.js",
+  "_BackButton-5ef14a72.js": {
+    "file": "chunks/BackButton-5ef14a72.js",
     "imports": [
-      "_index-28dc9a87.js",
+      "_index-3e726935.js",
       "_navigation-3f1ea447.js",
-      "_clustersStore-77246730.js",
-      "_paths-3b0ebf9b.js"
+      "_clustersStore-fd6da400.js",
+      "_paths-a527f18e.js"
     ]
   },
-  "_Hero-5df4d0f4.js": {
-    "file": "chunks/Hero-5df4d0f4.js",
+  "_Hero-8f3cf985.js": {
+    "file": "chunks/Hero-8f3cf985.js",
     "imports": [
-      "_index-28dc9a87.js",
-      "_paths-3b0ebf9b.js"
+      "_index-3e726935.js",
+      "_paths-a527f18e.js"
     ]
   }
 }
