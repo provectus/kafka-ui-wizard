@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-6e63b8da.js",
+    "file": "start-a8e4785f.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -42,7 +42,7 @@
     ]
   },
   "src/routes/clusters/[clusterId].svelte": {
-    "file": "pages/clusters/_clusterId_.svelte-03b935ee.js",
+    "file": "pages/clusters/_clusterId_.svelte-115f2694.js",
     "src": "src/routes/clusters/[clusterId].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -50,14 +50,14 @@
       "_index-3e726935.js",
       "_paths-a527f18e.js",
       "_clustersStore-fd6da400.js",
-      "_BackButton-5ef14a72.js",
+      "_BackButton-cf1c401c.js",
       "_navigation-3f1ea447.js",
       "_Hero-8f3cf985.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/clusters/new.svelte": {
-    "file": "pages/clusters/new.svelte-5f7dd3f3.js",
+    "file": "pages/clusters/new.svelte-bc4e6796.js",
     "src": "src/routes/clusters/new.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -65,7 +65,7 @@
       "_index-3e726935.js",
       "_navigation-3f1ea447.js",
       "_paths-a527f18e.js",
-      "_BackButton-5ef14a72.js",
+      "_BackButton-cf1c401c.js",
       "_clustersStore-fd6da400.js",
       "_singletons-d1fb5791.js"
     ]
@@ -106,8 +106,8 @@
       "_paths-a527f18e.js"
     ]
   },
-  "_BackButton-5ef14a72.js": {
-    "file": "chunks/BackButton-5ef14a72.js",
+  "_BackButton-cf1c401c.js": {
+    "file": "chunks/BackButton-cf1c401c.js",
     "imports": [
       "_index-3e726935.js",
       "_navigation-3f1ea447.js",
