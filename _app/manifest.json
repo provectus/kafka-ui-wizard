@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-3491121d.js",
+    "file": "start-c3520ab6.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -17,14 +17,14 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-6f35f872.js",
+    "file": "pages/__layout.svelte-4263a4ae.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-28dc9a87.js",
       "_navigation-3f1ea447.js",
-      "_clustersStore-635577d0.js",
+      "_clustersStore-70aa10c9.js",
       "_singletons-d1fb5791.js",
       "_index-46a1c5d2.js"
     ],
@@ -42,14 +42,14 @@
     ]
   },
   "src/routes/clusters/[clusterId].svelte": {
-    "file": "pages/clusters/_clusterId_.svelte-63e35edf.js",
+    "file": "pages/clusters/_clusterId_.svelte-446a4e37.js",
     "src": "src/routes/clusters/[clusterId].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-28dc9a87.js",
-      "_clustersStore-635577d0.js",
-      "_BackButton-9998cb5c.js",
+      "_clustersStore-70aa10c9.js",
+      "_BackButton-10c13a6e.js",
       "_navigation-3f1ea447.js",
       "_Hero-9dabd3c0.js",
       "_index-46a1c5d2.js",
@@ -57,28 +57,28 @@
     ]
   },
   "src/routes/clusters/new.svelte": {
-    "file": "pages/clusters/new.svelte-87ee1bc7.js",
+    "file": "pages/clusters/new.svelte-a2df406c.js",
     "src": "src/routes/clusters/new.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-28dc9a87.js",
       "_navigation-3f1ea447.js",
-      "_BackButton-9998cb5c.js",
-      "_clustersStore-635577d0.js",
+      "_BackButton-10c13a6e.js",
+      "_clustersStore-70aa10c9.js",
       "_singletons-d1fb5791.js",
       "_index-46a1c5d2.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-6fb4523b.js",
+    "file": "pages/index.svelte-5039d13f.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-28dc9a87.js",
       "_Hero-9dabd3c0.js",
-      "_clustersStore-635577d0.js",
+      "_clustersStore-70aa10c9.js",
       "_index-46a1c5d2.js"
     ]
   },
@@ -100,18 +100,18 @@
       "_singletons-d1fb5791.js"
     ]
   },
-  "_clustersStore-635577d0.js": {
-    "file": "chunks/clustersStore-635577d0.js",
+  "_clustersStore-70aa10c9.js": {
+    "file": "chunks/clustersStore-70aa10c9.js",
     "imports": [
       "_index-46a1c5d2.js"
     ]
   },
-  "_BackButton-9998cb5c.js": {
-    "file": "chunks/BackButton-9998cb5c.js",
+  "_BackButton-10c13a6e.js": {
+    "file": "chunks/BackButton-10c13a6e.js",
     "imports": [
       "_index-28dc9a87.js",
       "_navigation-3f1ea447.js",
-      "_clustersStore-635577d0.js",
+      "_clustersStore-70aa10c9.js",
       "_index-46a1c5d2.js"
     ]
   },

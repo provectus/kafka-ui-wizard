@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="winter">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/kafka-ui-wizard/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/kafka-ui-wizard/apple-touch-icon.png" />
+    <link rel="manifest" href="/kafka-ui-wizard/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-security-policy" content="">
+	<link rel="modulepreload" href="/kafka-ui-wizard/_app/start-c3520ab6.js">
+	<link rel="modulepreload" href="/kafka-ui-wizard/_app/chunks/index-28dc9a87.js">
+	<link rel="modulepreload" href="/kafka-ui-wizard/_app/chunks/index-46a1c5d2.js">
+	<link rel="modulepreload" href="/kafka-ui-wizard/_app/chunks/singletons-d1fb5791.js">
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="./icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="manifest" href="./manifest.json" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="content-security-policy" content="">
-	<link rel="modulepreload" href="/_app/start-3491121d.js">
-	<link rel="modulepreload" href="/_app/chunks/index-28dc9a87.js">
-	<link rel="modulepreload" href="/_app/chunks/index-46a1c5d2.js">
-	<link rel="modulepreload" href="/_app/chunks/singletons-d1fb5791.js">
-</head>
-
-<body>
-  <div>
+  <body>
+    <div>
 		<script type="module" data-sveltekit-hydrate="45h">
-		import { start } from "/_app/start-3491121d.js";
+		import { start } from "/kafka-ui-wizard/_app/start-c3520ab6.js";
 		start({
 			target: document.querySelector('[data-sveltekit-hydrate="45h"]').parentNode,
-			paths: {"base":"","assets":""},
+			paths: {"base":"/kafka-ui-wizard","assets":"/kafka-ui-wizard"},
 			session: {},
 			route: true,
 			spa: true,
@@ -28,6 +27,5 @@
 			hydrate: null
 		});
 	</script></div>
-</body>
-
+  </body>
 </html>
