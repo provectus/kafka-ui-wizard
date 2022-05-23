@@ -2,9 +2,14 @@ import yup from '$lib/yupExtended';
 
 const { string, object, number, boolean, array } = yup;
 
+const portSchema = number()
+  .max(65535, '65535 is the max')
+  .positive('positive only')
+  .required('required');
+
 export const bootstrapServerSchema = object({
   host: string().label('host').required('required'),
-  port: number().max(65535, '65535 is the max').positive('positive only').required('required')
+  port: portSchema
 });
 
 export const sslSchema = object({
@@ -43,25 +48,24 @@ const clusterConfigurationSchema = object({
     is: true,
     then: sslSchema.required()
   }),
-  authMethod: string().required().oneOf(['None', 'SASL', 'SSL', 'IAM']),
+
+  authMethod: string().required().oneOf(['None', 'SASL_SSL', 'SASL_PLAINTEXT']),
+
   saslMechanism: string()
     .label('sasl_mechanism')
     .when('authMethod', {
-      is: 'SASL',
-      then: (s) => s.required()
+      is: 'SASL_PLAINTEXT',
+      then: (s) =>
+        s.required().oneOf(['PLAIN', 'AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI'])
     }),
   saslJaasConfig: string()
     .label('sasl.jaas.config')
-    .when('authMethod', {
-      is: 'SASL',
+    .when('saslMechanism', {
+      is: (val: string) => val !== 'AWS_MSK_IAM',
       then: (s) => s.required()
     }),
-  ssl: object().when('authMethod', {
-    is: 'SSL',
-    then: () => sslSchema.required()
-  }),
-  useSpecificIAMProfile: boolean().when('authMethod', {
-    is: 'IAM',
+  useSpecificIAMProfile: boolean().when('saslMechanism', {
+    is: 'AWS_MSK_IAM',
     then: (s) => s.required()
   }),
   IAMProfile: string()
@@ -70,6 +74,17 @@ const clusterConfigurationSchema = object({
       is: true,
       then: (s) => s.required()
     }),
+  kerberosServiceName: string()
+    .label('Kerberos Service Name')
+    .when('saslMechanism', {
+      is: 'GSSAPI',
+      then: (s) => s.required()
+    }),
+  saslSSL: object().when('authMethod', {
+    is: 'SASL_SSL',
+    then: () => sslSchema.required()
+  }),
+
   schemaRegistryEnabled: boolean().required(),
   schemaRegistryURL: string()
     .label('URL')
@@ -95,12 +110,10 @@ const clusterConfigurationSchema = object({
     }),
   kafkaConnects: array().of(kafkaConnectSchema).required(),
   jmxEnabled: boolean().required(),
-  jmxPort: number()
-    .label('Port')
-    .when('jmxEnabled', {
-      is: true,
-      then: number().max(65535, '65535 is the max').positive('positive only').required('required')
-    }),
+  jmxPort: number().label('Port').when('jmxEnabled', {
+    is: true,
+    then: portSchema
+  }),
   jmxSslEnabled: boolean().when('jmxEnabled', {
     is: true,
     then: (s) => s.required()

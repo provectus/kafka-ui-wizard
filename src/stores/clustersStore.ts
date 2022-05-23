@@ -20,9 +20,10 @@ export const NEW_CLUSTER_CONFIG: ClusterConfiguration = {
   authMethod: 'None',
   saslJaasConfig: undefined,
   saslMechanism: undefined,
-  ssl: {},
+  saslSSL: {},
   useSpecificIAMProfile: false,
   IAMProfile: undefined,
+  kerberosServiceName: undefined,
   schemaRegistryEnabled: false,
   schemaRegistryURL: undefined,
   schemaRegistrySecuredWithAuth: false,
@@ -81,53 +82,102 @@ clustersStore.subscribe((value) => {
   localStorage[LOCAL_STORAGE_KEY] = JSON.stringify(value);
 });
 
-export const dockerCommandStore = derived(clustersStore, ($clusters) => {
-  const cmd = ['docker run -p 8080:8080', '-d provectuslabs/kafka-ui:latest'];
+export const paramsStore = derived(clustersStore, ($clusters) => {
+  const env: Record<string, string | undefined> = {};
+  const javaOpts: string[] = [];
+  const volumes: string[] = [];
 
-  $clusters.forEach((cluster, index) => {
-    const propertyPrefix = `-e KAFKA_CLUSTERS_${index}`;
-
-    cmd.push(`${propertyPrefix}_NAME=${cluster.clusterName}`);
-    cluster.readonly && cmd.push(`${propertyPrefix}_READONLY=${cluster.readonly}`);
-    const bootstrapServers = cluster.bootstrapServers
+  $clusters.forEach((cl, index) => {
+    const propertyPrefix = `KAFKA_CLUSTERS_${index}`;
+    env[`${propertyPrefix}_NAME`] = cl.clusterName;
+    if (cl.readonly) {
+      env[`${propertyPrefix}_READONLY`] = 'true';
+    }
+    const bootstrapServers = cl.bootstrapServers
       .map(({ host, port }) => `${host}:${port}`)
       .join(',');
-    cmd.push(`${propertyPrefix}_BOOTSTRAPSERVERS=${bootstrapServers}`);
+    env[`${propertyPrefix}_BOOTSTRAPSERVERS`] = bootstrapServers;
+
+    // SSL
+    if (cl.securedWithSSL) {
+      env[`${propertyPrefix}_PROPERTIES_SECURITY_PROTOCOL`] = 'SSL';
+      if (cl.selfSignedCA) {
+        const selfSignedCAPrefix = `${propertyPrefix}__PROPERTIES_SSL`;
+        const { truststoreLocation, truststorePassword, keystoreLocation, keystorePassword } =
+          cl.selfSignedCASsl;
+        env[`${selfSignedCAPrefix}_TRUSTSTORE_LOCATION`] = truststoreLocation;
+        env[`${selfSignedCAPrefix}_TRUSTSTORE_PASSWORD`] = truststorePassword;
+        env[`${selfSignedCAPrefix}_KEYSTORE_LOCATION`] = keystoreLocation;
+        env[`${selfSignedCAPrefix}_KEYSTORE_PASSWORD`] = keystorePassword;
+      }
+    }
+
+    // Auth
+    if (cl.authMethod === 'SASL_PLAINTEXT') {
+      const saslAuthPrefix = `${propertyPrefix}__PROPERTIES_SASL`;
+      env[`${saslAuthPrefix}_MECHANISM}`] = cl.saslMechanism;
+      if (cl.saslMechanism === 'GSSAPI') {
+        env[`${saslAuthPrefix}_KERBEROS_SERVICE_NAME`] = cl.kerberosServiceName;
+      }
+      if (cl.saslMechanism === 'AWS_MSK_IAM') {
+        env[`${saslAuthPrefix}_CLIENT_CALLBACK_HANDLER_CLASS`] =
+          'software.amazon.msk.auth.iam.IAMClientCallbackHandler';
+        if (cl.useSpecificIAMProfile) {
+          env[
+            `${saslAuthPrefix}_JAAS_CONFIG`
+          ] = `software.amazon.msk.auth.iam.IAMLoginModule required awsProfileName="${cl.IAMProfile}"`;
+        }
+      } else {
+        env[`${saslAuthPrefix}_JAAS_CONFIG`] = cl.saslJaasConfig;
+      }
+    }
 
     // Schema Registry
-    if (cluster.schemaRegistryEnabled) {
-      cmd.push(`${propertyPrefix}_SCHEMAREGISTRY=${cluster.schemaRegistryURL}`);
-      if (cluster.schemaRegistrySecuredWithAuth) {
+    if (cl.schemaRegistryEnabled) {
+      env[`${propertyPrefix}_SCHEMAREGISTRY`] = cl.schemaRegistryURL;
+      if (cl.schemaRegistrySecuredWithAuth) {
         const schemaRegistryAuthPrefix = `${propertyPrefix}_SCHEMAREGISTRYAUTH`;
-        cmd.push(`${schemaRegistryAuthPrefix}_USERNAME=${cluster.schemaRegistryUsername}`);
-        cmd.push(`${schemaRegistryAuthPrefix}_PASSWORD=${cluster.schemaRegistryPassword}`);
+        env[`${schemaRegistryAuthPrefix}_USERNAME`] = cl.schemaRegistryUsername;
+        env[`${schemaRegistryAuthPrefix}_PASSWORD`] = cl.schemaRegistryPassword;
       }
     }
 
     // Kafka Connect
-    cluster.kafkaConnects.forEach((connect, idx) => {
+    cl.kafkaConnects.forEach((connect, idx) => {
       const connectPrefix = `${propertyPrefix}_KAFKACONNECT_${idx}`;
-      cmd.push(`${connectPrefix}_NAME=${connect.name}`);
-      cmd.push(`${connectPrefix}_ADDRESS=${connect.url}`);
+      env[`${connectPrefix}_NAME`] = connect.name;
+      env[`${connectPrefix}_ADDRESS`] = connect.url;
       if (connect.securedWithAuth) {
-        cmd.push(`${connectPrefix}_USERNAME=${connect.username}`);
-        cmd.push(`${connectPrefix}_PASSWORD=${connect.password}`);
+        env[`${connectPrefix}_USERNAME`] = connect.username;
+        env[`${connectPrefix}_PASSWORD`] = connect.password;
       }
     });
 
-    if (cluster.jmxEnabled) {
-      cmd.push(`${propertyPrefix}_JMXPORT=${cluster.jmxPort}`);
-      if (cluster.jmxSslEnabled) {
-        cmd.push(`${propertyPrefix}_JMXSSL=${cluster.jmxSslEnabled}`);
+    if (cl.jmxEnabled) {
+      env[`${propertyPrefix}_JMXPORT`] = `${cl.jmxPort}`;
+
+      if (cl.jmxSslEnabled) {
+        env[`${propertyPrefix}_JMXSSL`] = 'true';
+        volumes.push(`./jmx/clienttruststore:${cl.jmxSsl.truststoreLocation}`);
+        javaOpts.push(`-Djavax.net.ssl.trustStore=${cl.jmxSsl.truststoreLocation}`);
+        javaOpts.push(`-Djavax.net.ssl.trustStorePassword=${cl.jmxSsl.truststorePassword}`);
+
+        volumes.push(`./jmx/clientkeystore:${cl.jmxSsl.keystoreLocation}`);
+        javaOpts.push(`-Djavax.net.ssl.keyStore=${cl.jmxSsl.keystoreLocation}`);
+        javaOpts.push(`-Djavax.net.ssl.keyStorePassword=${cl.jmxSsl.keystorePassword}`);
       }
-      if (cluster.jmxSecuredWithAuth) {
-        cmd.push(`${propertyPrefix}_JMXUSERNAME=${cluster.jmxUsername}`);
-        cmd.push(`${propertyPrefix}_JMXPASSWORD=${cluster.jmxPassword}`);
+      if (cl.jmxSecuredWithAuth) {
+        env[`${propertyPrefix}_JMXUSERNAME`] = cl.jmxUsername;
+        env[`${propertyPrefix}_JMXPASSWORD`] = cl.jmxPassword;
       }
     }
   });
 
-  return cmd;
+  return {
+    env,
+    javaOpts,
+    volumes
+  };
 });
 
 export default clustersStore;

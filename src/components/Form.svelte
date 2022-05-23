@@ -110,22 +110,42 @@
 
   <FormSection title="Authentication">
     <svelte:fragment slot="form">
-      <SelectField name="authMethod" label="" containerClass="col-span-2">
-        <option>None</option>
-        <option>SASL</option>
-        <option>SSL</option>
-        <option>IAM</option>
-      </SelectField>
-      {#if $data.authMethod === 'SASL'}
-        <TextField name="saslMechanism" label="sasl_mechanism" errors={$errors.saslMechanism} />
-        <TextField name="saslJaasConfig" label="sasl.jaas.config" errors={$errors.saslJaasConfig} />
-      {:else if $data.authMethod === 'SSL'}
-        <SslForm errors={$errors.ssl} namePrefix="ssl" />
-      {:else if $data.authMethod === 'IAM'}
-        <CheckboxField name="useSpecificIAMProfile" label="Specific profile" />
-        {#if $data.useSpecificIAMProfile}
-          <TextField name="IAMProfile" label="Profile name" errors={$errors.IAMProfile} />
+      <SelectField
+        name="authMethod"
+        label=""
+        containerClass="col-span-2"
+        options={['None', 'SASL_SSL', 'SASL_PLAINTEXT']}
+      />
+      {#if $data.authMethod === 'SASL_PLAINTEXT'}
+        <SelectField
+          name="saslMechanism"
+          label="SASL Mechanism"
+          containerClass="col-span-6"
+          options={['PLAIN', 'AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI']}
+        />
+
+        {#if $data.saslMechanism === 'GSSAPI'}
+          <TextField
+            name="kerberosServiceName"
+            label="Kerberos Service Name"
+            errors={$errors.kerberosServiceName}
+          />
         {/if}
+
+        {#if $data.saslMechanism === 'AWS_MSK_IAM'}
+          <CheckboxField name="useSpecificIAMProfile" label="Specific profile" />
+          {#if $data.useSpecificIAMProfile}
+            <TextField name="IAMProfile" label="Profile name" errors={$errors.IAMProfile} />
+          {/if}
+        {:else}
+          <TextField
+            name="saslJaasConfig"
+            label="sasl.jaas.config"
+            errors={$errors.saslJaasConfig}
+          />
+        {/if}
+      {:else if $data.authMethod === 'SASL_SSL'}
+        <SslForm errors={$errors.saslSSL} namePrefix="saslSSL" />
       {/if}
     </svelte:fragment>
   </FormSection>
