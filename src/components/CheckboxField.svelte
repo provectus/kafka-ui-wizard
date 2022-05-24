@@ -8,7 +8,7 @@
 <div class="col-span-6">
   <div class="flex items-start">
     <div class="flex items-center h-5">
-      <input id={name} {name} type="checkbox" class="checkbox checkbox-sm" />
+      <input id={name} {name} type="checkbox" class="checkbox" />
     </div>
     <div class="ml-3">
       <Label forTarget={name}>{label}</Label>

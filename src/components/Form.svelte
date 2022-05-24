@@ -113,7 +113,7 @@
       <SelectField
         name="authMethod"
         label=""
-        containerClass="col-span-2"
+        containerClass="col-span-3"
         options={['None', 'SASL_SSL', 'SASL_PLAINTEXT']}
       />
       {#if $data.authMethod === 'SASL_PLAINTEXT'}
@@ -240,7 +240,7 @@
     </svelte:fragment>
   </FormSection>
   <div class="md:mt-0 md:col-span-3 md:col-start-2">
-    <div class="px-4 py-5 space-y-6 sm:p-4 bg-grey-50 text-right">
+    <div class="px-4 py-5 sm:p-4 bg-grey-50 text-right">
       <button class="btn btn-secondary text-white" on:click={() => goto(`${base}/`)}>
         Cancel
       </button>

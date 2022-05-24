@@ -7,8 +7,12 @@
 </script>
 
 <div class={containerClass}>
-  <Label forTarget={name}>{label}</Label>
-  <select id={name} {name} class="select select-bordered w-full mt-1">
+  {#if label}
+    <div class="flex flex-wrap items-baseline mb-2">
+      <Label forTarget={name}>{label}</Label>
+    </div>
+  {/if}
+  <select id={name} {name} class="select select-bordered w-full">
     {#each options as option}
       <option>{option}</option>
     {/each}

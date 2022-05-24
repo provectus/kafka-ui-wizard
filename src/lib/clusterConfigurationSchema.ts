@@ -60,8 +60,9 @@ const clusterConfigurationSchema = object({
     }),
   saslJaasConfig: string()
     .label('sasl.jaas.config')
-    .when('saslMechanism', {
-      is: (val: string) => val !== 'AWS_MSK_IAM',
+    .when(['authMethod', 'saslMechanism'], {
+      is: (authMethod: string, saslMechanism: string) =>
+        authMethod === 'SASL_PLAINTEXT' && saslMechanism !== 'AWS_MSK_IAM',
       then: (s) => s.required()
     }),
   useSpecificIAMProfile: boolean().when('saslMechanism', {
