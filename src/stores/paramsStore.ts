@@ -89,3 +89,59 @@ export const paramsStore = derived(clustersStore, ($clusters) => {
     volumes
   };
 });
+
+export const dockerCommandStore = derived(paramsStore, ({ env, javaOpts, volumes }) => {
+  let cmd = 'docker run -p 8080:8080 \\\n';
+  cmd += '\t\t-d provectuslabs/kafka-ui:latest \\\n';
+
+  Object.entries(env).forEach(([key, value]) => {
+    if (value !== undefined) {
+      cmd += `\t\t-e ${key}=${value} \\\n`;
+    }
+  });
+
+  if (javaOpts.length > 0) {
+    cmd += `\t\t-e JAVA_OPTS="\\\n`;
+    javaOpts.forEach((opt) => (cmd += `\t\t\t${opt} \\\n`));
+    cmd += `\t\t"\\\n`;
+  }
+
+  if (volumes.length > 0) {
+    volumes.forEach((volume) => (cmd += `\t\t-v ${volume} \\\n`));
+  }
+
+  return cmd;
+});
+
+export const dockerComposeStore = derived(paramsStore, ({ env, javaOpts, volumes }) => {
+  let cmd = `---
+version: '2'
+services:
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - kafka-connect0
+    environment:
+`;
+
+  Object.entries(env).forEach(([key, value]) => {
+    if (value !== undefined) {
+      cmd += `      ${key}:${value}\n`;
+    }
+  });
+
+  if (javaOpts.length > 0) {
+    cmd += `      JAVA_OPTS:>-\n`;
+    javaOpts.forEach((opt) => (cmd += `        ${opt}\n`));
+  }
+
+  if (volumes.length > 0) {
+    cmd += `    volumes:\n`;
+    volumes.forEach((volume) => (cmd += `      - ${volume}\n`));
+  }
+
+  return cmd;
+});

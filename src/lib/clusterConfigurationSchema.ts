@@ -43,14 +43,12 @@ const clusterConfigurationSchema = object({
   bootstrapServers: array().of(bootstrapServerSchema).min(1).required(),
   sharedConfluentCloudCluster: boolean().required().default(false),
   securedWithSSL: boolean().required().default(false),
-  selfSignedCA: boolean().required().default(false),
+  selfSignedCA: boolean().default(false),
   selfSignedCASsl: object().when('selfSignedCA', {
     is: true,
     then: sslSchema.required()
   }),
-
   authMethod: string().required().oneOf(['None', 'SASL_SSL', 'SASL_PLAINTEXT']),
-
   saslMechanism: string()
     .label('sasl_mechanism')
     .when('authMethod', {
