@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-5df67415.js",
+    "file": "start-13dbacd7.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -29,7 +29,7 @@
       "_singletons-d1fb5791.js"
     ],
     "css": [
-      "assets/pages/__layout.svelte-e9c5fac3.css"
+      "assets/pages/__layout.svelte-54299fec.css"
     ],
     "assets": [
       "assets/GitHub-Mark-120px-plus-78981108.png"
@@ -45,7 +45,7 @@
     ]
   },
   "src/routes/clusters/[clusterId].svelte": {
-    "file": "pages/clusters/_clusterId_.svelte-669104df.js",
+    "file": "pages/clusters/_clusterId_.svelte-1ce730fc.js",
     "src": "src/routes/clusters/[clusterId].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -53,14 +53,14 @@
       "_index-2c76f9aa.js",
       "_paths-e6179b29.js",
       "_clustersStore-2175da17.js",
-      "_BackButton-0081911a.js",
+      "_BackButton-52e94265.js",
       "_navigation-3f1ea447.js",
       "_Hero-f4b0ab35.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/clusters/new.svelte": {
-    "file": "pages/clusters/new.svelte-bdeb1d73.js",
+    "file": "pages/clusters/new.svelte-d38d180f.js",
     "src": "src/routes/clusters/new.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -68,13 +68,13 @@
       "_index-2c76f9aa.js",
       "_navigation-3f1ea447.js",
       "_paths-e6179b29.js",
-      "_BackButton-0081911a.js",
+      "_BackButton-52e94265.js",
       "_clustersStore-2175da17.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-90323387.js",
+    "file": "pages/index.svelte-b7699b02.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -109,8 +109,8 @@
       "_paths-e6179b29.js"
     ]
   },
-  "_BackButton-0081911a.js": {
-    "file": "chunks/BackButton-0081911a.js",
+  "_BackButton-52e94265.js": {
+    "file": "chunks/BackButton-52e94265.js",
     "imports": [
       "_index-2c76f9aa.js",
       "_navigation-3f1ea447.js",
