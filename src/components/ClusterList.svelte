@@ -2,11 +2,6 @@
   import { goto } from '$app/navigation';
   import { base } from '$app/paths';
   import clustersStore from '../stores/clustersStore';
-
-  const handleCopy = (id: string) => () => {
-    const newId = clustersStore.copy(id);
-    goto(`${base}/clusters/${newId}`);
-  };
 </script>
 
 <div class="grid gap-0 p-2 md:p-3">
@@ -23,11 +18,6 @@
           </div>
         </div>
         <div class="card-actions justify-end">
-          <button
-            class="btn btn-xs btn-outline"
-            title="Copy"
-            on:click|stopPropagation={handleCopy(id)}>Copy</button
-          >
           <button
             class="btn btn-error btn-square btn-xs text-white"
             title="Remove"

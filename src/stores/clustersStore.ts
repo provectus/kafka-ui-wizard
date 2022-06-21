@@ -61,18 +61,6 @@ const clustersStore = {
   subscribe,
   addNew: (newItem: ClusterConfiguration) =>
     update((items) => [...items, { ...newItem, id: generateUniqId() }]),
-  copy: (clusterId: string) => {
-    const id = generateUniqId();
-    update((items) => {
-      const itemToCopy = items.find(({ id }) => id === clusterId);
-      if (itemToCopy) {
-        const clusterName = `${itemToCopy.clusterName}_${generateUniqId()}`;
-        return [...items, { ...itemToCopy, id, clusterName }];
-      }
-      return items;
-    });
-    return id;
-  },
   remove: (id: string) => update((items) => items.filter((item) => item.id !== id)),
   update: (id: string, updatedItem: ClusterConfiguration) =>
     update((items) => items.map((item) => (item.id === id ? { ...updatedItem, id } : item)))
