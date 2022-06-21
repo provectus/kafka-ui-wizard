@@ -1,11 +1,11 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-13dbacd7.js",
+    "file": "start-9bbf29a7.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_index-2c76f9aa.js",
-      "_paths-e6179b29.js",
+      "_index-71e01c76.js",
+      "_paths-1ad49849.js",
       "_singletons-d1fb5791.js"
     ],
     "dynamicImports": [
@@ -17,15 +17,15 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-a81d709f.js",
+    "file": "pages/__layout.svelte-a155f54d.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-2c76f9aa.js",
-      "_paths-e6179b29.js",
+      "_index-71e01c76.js",
+      "_paths-1ad49849.js",
       "_navigation-3f1ea447.js",
-      "_clustersStore-2175da17.js",
+      "_clustersStore-6d71451f.js",
       "_singletons-d1fb5791.js"
     ],
     "css": [
@@ -36,62 +36,62 @@
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "error.svelte-abae3ac0.js",
+    "file": "error.svelte-32be2c50.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-2c76f9aa.js"
+      "_index-71e01c76.js"
     ]
   },
   "src/routes/clusters/[clusterId].svelte": {
-    "file": "pages/clusters/_clusterId_.svelte-1ce730fc.js",
+    "file": "pages/clusters/_clusterId_.svelte-f78af7ee.js",
     "src": "src/routes/clusters/[clusterId].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-2c76f9aa.js",
-      "_paths-e6179b29.js",
-      "_clustersStore-2175da17.js",
-      "_BackButton-52e94265.js",
+      "_index-71e01c76.js",
+      "_paths-1ad49849.js",
+      "_clustersStore-6d71451f.js",
+      "_BackButton-fafe10ff.js",
       "_navigation-3f1ea447.js",
-      "_Hero-f4b0ab35.js",
+      "_Hero-c84bdd20.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/clusters/new.svelte": {
-    "file": "pages/clusters/new.svelte-d38d180f.js",
+    "file": "pages/clusters/new.svelte-fd5c7a60.js",
     "src": "src/routes/clusters/new.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-2c76f9aa.js",
+      "_index-71e01c76.js",
       "_navigation-3f1ea447.js",
-      "_paths-e6179b29.js",
-      "_BackButton-52e94265.js",
-      "_clustersStore-2175da17.js",
+      "_paths-1ad49849.js",
+      "_BackButton-fafe10ff.js",
+      "_clustersStore-6d71451f.js",
       "_singletons-d1fb5791.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-b7699b02.js",
+    "file": "pages/index.svelte-9f03b7d1.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-2c76f9aa.js",
-      "_Hero-f4b0ab35.js",
-      "_clustersStore-2175da17.js",
-      "_paths-e6179b29.js"
+      "_index-71e01c76.js",
+      "_Hero-c84bdd20.js",
+      "_clustersStore-6d71451f.js",
+      "_paths-1ad49849.js"
     ]
   },
-  "_index-2c76f9aa.js": {
-    "file": "chunks/index-2c76f9aa.js"
+  "_index-71e01c76.js": {
+    "file": "chunks/index-71e01c76.js"
   },
-  "_paths-e6179b29.js": {
-    "file": "chunks/paths-e6179b29.js",
+  "_paths-1ad49849.js": {
+    "file": "chunks/paths-1ad49849.js",
     "imports": [
-      "_index-2c76f9aa.js"
+      "_index-71e01c76.js"
     ]
   },
   "_singletons-d1fb5791.js": {
@@ -103,26 +103,26 @@
       "_singletons-d1fb5791.js"
     ]
   },
-  "_clustersStore-2175da17.js": {
-    "file": "chunks/clustersStore-2175da17.js",
+  "_clustersStore-6d71451f.js": {
+    "file": "chunks/clustersStore-6d71451f.js",
     "imports": [
-      "_paths-e6179b29.js"
+      "_paths-1ad49849.js"
     ]
   },
-  "_BackButton-52e94265.js": {
-    "file": "chunks/BackButton-52e94265.js",
+  "_BackButton-fafe10ff.js": {
+    "file": "chunks/BackButton-fafe10ff.js",
     "imports": [
-      "_index-2c76f9aa.js",
+      "_index-71e01c76.js",
       "_navigation-3f1ea447.js",
-      "_clustersStore-2175da17.js",
-      "_paths-e6179b29.js"
+      "_clustersStore-6d71451f.js",
+      "_paths-1ad49849.js"
     ]
   },
-  "_Hero-f4b0ab35.js": {
-    "file": "chunks/Hero-f4b0ab35.js",
+  "_Hero-c84bdd20.js": {
+    "file": "chunks/Hero-c84bdd20.js",
     "imports": [
-      "_index-2c76f9aa.js",
-      "_paths-e6179b29.js"
+      "_index-71e01c76.js",
+      "_paths-1ad49849.js"
     ]
   }
 }
