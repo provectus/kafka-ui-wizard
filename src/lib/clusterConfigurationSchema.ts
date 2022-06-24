@@ -76,7 +76,7 @@ const clusterConfigurationSchema = object({
     .when('authMethod', {
       is: 'SASL_SSL',
       then: (s) =>
-        s.required().oneOf(['PLAIN', 'AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI'])
+        s.required().oneOf(['AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI'])
     }),
   saslJaasConfig: string()
     .label('sasl.jaas.config')

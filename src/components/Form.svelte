@@ -56,6 +56,8 @@
     reset();
   }
 
+  $: $data.securedWithSSL = $data.authMethod === 'SASL_SSL' || $data.securedWithSSL;
+
   const addBootstrapServer = (index: number) => () =>
     addField('bootstrapServers', NEW_CLUSTER_CONFIG.bootstrapServers, index);
   const removeBootstrapServer = (index: number) => () => unsetField(`bootstrapServers.${index}`);
@@ -121,7 +123,6 @@
           required
         />
       {:else if $data.authMethod === 'SASL_SSL'}
-        <CheckboxField name="securedWithSSL" label="Secured with SSL" />
         {#if $data.securedWithSSL}
           <CheckboxField name="selfSignedCA" label="Self-signed certificate" />
           {#if $data.selfSignedCA}
@@ -132,7 +133,7 @@
           name="saslMechanism"
           label="SASL Mechanism"
           containerClass="col-span-6"
-          options={['PLAIN', 'AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI']}
+          options={['AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI']}
         />
         {#if $data.saslMechanism === 'SCRAM-SHA-256' || $data.saslMechanism === 'SCRAM-SHA-512'}
           <TextField

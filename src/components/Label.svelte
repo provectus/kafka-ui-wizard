@@ -4,9 +4,8 @@
 </script>
 
 <label
-  class="{required
-    ? 'required'
-    : ''} block text-sm font-medium text-gray-700 whitespace-nowrap mr-2"
+  class="block text-sm font-medium text-gray-700 whitespace-nowrap mr-2"
+  class:required
   for={forTarget}
 >
   <slot />
