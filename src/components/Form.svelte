@@ -142,19 +142,21 @@
             errors={$errors.saslJaasConfig}
             required
           />
-        {/if}
-        {#if $data.saslMechanism === 'GSSAPI'}
+        {:else if $data.saslMechanism === 'GSSAPI'}
           <TextField
             name="kerberosServiceName"
             label="Kerberos Service Name"
             errors={$errors.kerberosServiceName}
           />
-        {/if}
-
-        {#if $data.saslMechanism === 'AWS_MSK_IAM'}
+        {:else if $data.saslMechanism === 'AWS_MSK_IAM'}
           <CheckboxField name="useSpecificIAMProfile" label="Specific profile" />
           {#if $data.useSpecificIAMProfile}
-            <TextField name="IAMProfile" label="Profile name" errors={$errors.IAMProfile} />
+            <TextField
+              name="IAMProfile"
+              label="Profile name"
+              errors={$errors.IAMProfile}
+              required
+            />
           {/if}
         {/if}
       {/if}

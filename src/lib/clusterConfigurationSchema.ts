@@ -80,8 +80,14 @@ const clusterConfigurationSchema = object({
     }),
   saslJaasConfig: string()
     .label('sasl.jaas.config')
-    .when('authMethod', {
-      is: 'SASL_PLAINTEXT',
+    .when(['authMethod', 'saslMechanism'], {
+      is: (authMethod: string, saslMechanism: string) =>
+      authMethod === 'SASL_PLAINTEXT' || 
+      authMethod === 'SASL_SSL' && 
+      (
+        saslMechanism === 'SCRAM-SHA-256' || 
+        saslMechanism === 'SCRAM-SHA-512'
+      ),
       then: (s) => s.required()
     }),
   useSpecificIAMProfile: boolean().when('saslMechanism', {
@@ -100,8 +106,9 @@ const clusterConfigurationSchema = object({
       is: 'GSSAPI',
       then: (s) => s.required()
     }),
-  saslSSL: object().when('authMethod', {
-    is: 'SASL_SSL',
+  saslSSL: object().when(['authMethod', 'jmxSslEnabled'], {
+    is: (authMethod: string, jmxSslEnabled: boolean) => 
+      authMethod === 'SASL_SSL' && jmxSslEnabled,
     then: () => sslSchema.required()
   }),
 
