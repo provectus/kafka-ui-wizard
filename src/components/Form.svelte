@@ -135,19 +135,20 @@
           containerClass="col-span-6"
           options={['AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI']}
         />
-        {#if $data.saslMechanism === 'SCRAM-SHA-256' || $data.saslMechanism === 'SCRAM-SHA-512'}
+        {#if $data.saslMechanism && ['GSSAPI', 'SCRAM-SHA-256', 'SCRAM-SHA-512'].includes($data.saslMechanism)}
           <TextField
             name="saslJaasConfig"
             label="sasl.jaas.config"
             errors={$errors.saslJaasConfig}
             required
           />
-        {:else if $data.saslMechanism === 'GSSAPI'}
-          <TextField
-            name="kerberosServiceName"
-            label="Kerberos Service Name"
-            errors={$errors.kerberosServiceName}
-          />
+          {#if $data.saslMechanism === 'GSSAPI'}
+            <TextField
+              name="kerberosServiceName"
+              label="Kerberos Service Name"
+              errors={$errors.kerberosServiceName}
+            />
+          {/if}
         {:else if $data.saslMechanism === 'AWS_MSK_IAM'}
           <CheckboxField name="useSpecificIAMProfile" label="Specific profile" />
           {#if $data.useSpecificIAMProfile}

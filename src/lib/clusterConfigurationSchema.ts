@@ -83,10 +83,9 @@ const clusterConfigurationSchema = object({
     .when(['authMethod', 'saslMechanism'], {
       is: (authMethod: string, saslMechanism: string) =>
       authMethod === 'SASL_PLAINTEXT' || 
-      authMethod === 'SASL_SSL' && 
       (
-        saslMechanism === 'SCRAM-SHA-256' || 
-        saslMechanism === 'SCRAM-SHA-512'
+        authMethod === 'SASL_SSL' && 
+        ['GSSAPI', 'SCRAM-SHA-256', 'SCRAM-SHA-512'].includes(saslMechanism)
       ),
       then: (s) => s.required()
     }),
@@ -106,12 +105,10 @@ const clusterConfigurationSchema = object({
       is: 'GSSAPI',
       then: (s) => s.required()
     }),
-  saslSSL: object().when(['authMethod', 'jmxSslEnabled'], {
-    is: (authMethod: string, jmxSslEnabled: boolean) => 
-      authMethod === 'SASL_SSL' && jmxSslEnabled,
-    then: () => sslSchema.required()
+  saslSSL: object().when('authMethod', {
+    is: 'SASL_SSL',
+    then: (s) => s.required()
   }),
-
   schemaRegistryEnabled: boolean().required(),
   schemaRegistryURL: string()
     .label('URL')
