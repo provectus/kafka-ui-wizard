@@ -26,8 +26,13 @@ export const paramsStore = derived(clustersStore, ($clusters) => {
     }
 
     const selfSignedCAPrefix = `${propertyPrefix}_PROPERTIES_SSL`;
-    const { truststoreLocation, truststorePassword, keystoreLocation, keystorePassword, keystoreKeyPassword } =
-      cl.selfSignedCASsl;
+    const {
+      truststoreLocation,
+      truststorePassword,
+      keystoreLocation,
+      keystorePassword,
+      keystoreKeyPassword
+    } = cl.selfSignedCASsl;
     env[`${selfSignedCAPrefix}_TRUSTSTORE_LOCATION`] = truststoreLocation;
     env[`${selfSignedCAPrefix}_TRUSTSTORE_PASSWORD`] = truststorePassword;
     env[`${selfSignedCAPrefix}_KEYSTORE_LOCATION`] = keystoreLocation;

@@ -12,33 +12,34 @@ export const bootstrapServerSchema = object({
   port: portSchema
 });
 
-export const sslSchema = object().shape({ 
-  truststoreLocation: string().label('Truststore location').required(),
-  truststorePassword: string().label('Truststore password').required(),
-  keystoreLocation: string().label('Keystore location')
-    .when(['keystoreKeyPassword','keystorePassword'], {
-      is: (a:string, b:string) => 
-        a.length > 0 || b.length > 0,
-      then: (s) => s.required()
-    }),
-  keystorePassword: string().label('Keystore password')
-    .when(['keystoreLocation','keystoreKeyPassword'], {
-      is: (a:string, b:string) => 
-        a.length > 0 || b.length > 0,
-      then: (s) => s.required()
-    }),
-  keystoreKeyPassword: string().label('Keystore key password')
-    .when(['keystoreLocation','keystorePassword'], {
-      is: (a:string, b:string) => 
-        a.length > 0 || b.length > 0,
-      then: (s) => s.required()
-    }),
-},
-[
-  ["keystoreKeyPassword", "keystorePassword"], 
-  ["keystoreLocation", "keystoreKeyPassword"], 
-  ["keystoreLocation", "keystorePassword"]
-]
+export const sslSchema = object().shape(
+  {
+    truststoreLocation: string().label('Truststore location').required(),
+    truststorePassword: string().label('Truststore password').required(),
+    keystoreLocation: string()
+      .label('Keystore location')
+      .when(['keystoreKeyPassword', 'keystorePassword'], {
+        is: (a: string, b: string) => a.length > 0 || b.length > 0,
+        then: (s) => s.required()
+      }),
+    keystorePassword: string()
+      .label('Keystore password')
+      .when(['keystoreLocation', 'keystoreKeyPassword'], {
+        is: (a: string, b: string) => a.length > 0 || b.length > 0,
+        then: (s) => s.required()
+      }),
+    keystoreKeyPassword: string()
+      .label('Keystore key password')
+      .when(['keystoreLocation', 'keystorePassword'], {
+        is: (a: string, b: string) => a.length > 0 || b.length > 0,
+        then: (s) => s.required()
+      })
+  },
+  [
+    ['keystoreKeyPassword', 'keystorePassword'],
+    ['keystoreLocation', 'keystoreKeyPassword'],
+    ['keystoreLocation', 'keystorePassword']
+  ]
 );
 
 export const kafkaConnectSchema = object({
@@ -75,18 +76,15 @@ const clusterConfigurationSchema = object({
     .label('sasl_mechanism')
     .when('authMethod', {
       is: 'SASL_SSL',
-      then: (s) =>
-        s.required().oneOf(['AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI'])
+      then: (s) => s.required().oneOf(['AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI'])
     }),
   saslJaasConfig: string()
     .label('sasl.jaas.config')
     .when(['authMethod', 'saslMechanism'], {
       is: (authMethod: string, saslMechanism: string) =>
-      authMethod === 'SASL_PLAINTEXT' || 
-      (
-        authMethod === 'SASL_SSL' && 
-        ['GSSAPI', 'SCRAM-SHA-256', 'SCRAM-SHA-512'].includes(saslMechanism)
-      ),
+        authMethod === 'SASL_PLAINTEXT' ||
+        (authMethod === 'SASL_SSL' &&
+          ['GSSAPI', 'SCRAM-SHA-256', 'SCRAM-SHA-512'].includes(saslMechanism)),
       then: (s) => s.required()
     }),
   useSpecificIAMProfile: boolean().when('saslMechanism', {
