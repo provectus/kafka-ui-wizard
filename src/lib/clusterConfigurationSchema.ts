@@ -12,12 +12,35 @@ export const bootstrapServerSchema = object({
   port: portSchema
 });
 
-export const sslSchema = object({
-  truststoreLocation: string().label('Truststore location').required(),
-  truststorePassword: string().label('Truststore password').required(),
-  keystoreLocation: string().label('Keystore location').required(),
-  keystorePassword: string().label('Keystore password').required()
-});
+export const sslSchema = object().shape(
+  {
+    truststoreLocation: string().label('Truststore location').required(),
+    truststorePassword: string().label('Truststore password').required(),
+    keystoreLocation: string()
+      .label('Keystore location')
+      .when(['keystoreKeyPassword', 'keystorePassword'], {
+        is: (a: string, b: string) => a.length > 0 || b.length > 0,
+        then: (s) => s.required()
+      }),
+    keystorePassword: string()
+      .label('Keystore password')
+      .when(['keystoreLocation', 'keystoreKeyPassword'], {
+        is: (a: string, b: string) => a.length > 0 || b.length > 0,
+        then: (s) => s.required()
+      }),
+    keystoreKeyPassword: string()
+      .label('Keystore key password')
+      .when(['keystoreLocation', 'keystorePassword'], {
+        is: (a: string, b: string) => a.length > 0 || b.length > 0,
+        then: (s) => s.required()
+      })
+  },
+  [
+    ['keystoreKeyPassword', 'keystorePassword'],
+    ['keystoreLocation', 'keystoreKeyPassword'],
+    ['keystoreLocation', 'keystorePassword']
+  ]
+);
 
 export const kafkaConnectSchema = object({
   name: string().required(),
@@ -52,15 +75,16 @@ const clusterConfigurationSchema = object({
   saslMechanism: string()
     .label('sasl_mechanism')
     .when('authMethod', {
-      is: 'SASL_PLAINTEXT',
-      then: (s) =>
-        s.required().oneOf(['PLAIN', 'AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI'])
+      is: 'SASL_SSL',
+      then: (s) => s.required().oneOf(['AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI'])
     }),
   saslJaasConfig: string()
     .label('sasl.jaas.config')
     .when(['authMethod', 'saslMechanism'], {
       is: (authMethod: string, saslMechanism: string) =>
-        authMethod === 'SASL_PLAINTEXT' && saslMechanism !== 'AWS_MSK_IAM',
+        authMethod === 'SASL_PLAINTEXT' ||
+        (authMethod === 'SASL_SSL' &&
+          ['GSSAPI', 'SCRAM-SHA-256', 'SCRAM-SHA-512'].includes(saslMechanism)),
       then: (s) => s.required()
     }),
   useSpecificIAMProfile: boolean().when('saslMechanism', {
@@ -81,9 +105,8 @@ const clusterConfigurationSchema = object({
     }),
   saslSSL: object().when('authMethod', {
     is: 'SASL_SSL',
-    then: () => sslSchema.required()
+    then: (s) => s.required()
   }),
-
   schemaRegistryEnabled: boolean().required(),
   schemaRegistryURL: string()
     .label('URL')

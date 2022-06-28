@@ -26,12 +26,18 @@ export const paramsStore = derived(clustersStore, ($clusters) => {
     }
 
     const selfSignedCAPrefix = `${propertyPrefix}_PROPERTIES_SSL`;
-    const { truststoreLocation, truststorePassword, keystoreLocation, keystorePassword } =
-      cl.selfSignedCASsl;
+    const {
+      truststoreLocation,
+      truststorePassword,
+      keystoreLocation,
+      keystorePassword,
+      keystoreKeyPassword
+    } = cl.selfSignedCASsl;
     env[`${selfSignedCAPrefix}_TRUSTSTORE_LOCATION`] = truststoreLocation;
     env[`${selfSignedCAPrefix}_TRUSTSTORE_PASSWORD`] = truststorePassword;
     env[`${selfSignedCAPrefix}_KEYSTORE_LOCATION`] = keystoreLocation;
     env[`${selfSignedCAPrefix}_KEYSTORE_PASSWORD`] = keystorePassword;
+    env[`${selfSignedCAPrefix}_KEYSTORE_KEY_PASSWORD`] = keystoreKeyPassword;
 
     // Auth
     if (cl.authMethod !== 'None') {
@@ -39,6 +45,10 @@ export const paramsStore = derived(clustersStore, ($clusters) => {
     }
 
     const saslAuthPrefix = `${propertyPrefix}_PROPERTIES_SASL`;
+
+    if (cl.authMethod === 'SASL_PLAINTEXT') {
+      env[`${saslAuthPrefix}_MECHANISM`] = 'PLAIN';
+    }
     env[`${saslAuthPrefix}_MECHANISM`] = cl.saslMechanism;
     env[`${saslAuthPrefix}_KERBEROS_SERVICE_NAME`] = cl.kerberosServiceName;
     env[`${saslAuthPrefix}_JAAS_CONFIG`] = cl.saslJaasConfig;

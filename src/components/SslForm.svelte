@@ -12,20 +12,30 @@
   label="Truststore location"
   containerClass="col-start-1 col-span-3"
   errors={errors?.truststoreLocation || null}
+  required
 />
 <PasswordField
   name={`${namePrefix}.truststorePassword`}
   label="Truststore password"
   errors={errors?.truststorePassword || null}
+  required
 />
 <TextField
   name={`${namePrefix}.keystoreLocation`}
   label="Keystore location"
-  containerClass="col-span-3"
+  containerClass="col-span-2"
   errors={errors?.keystoreLocation || null}
 />
 <PasswordField
   name={`${namePrefix}.keystorePassword`}
   label="Keystore password"
+  containerClass="col-span-2"
   errors={errors?.keystorePassword || null}
+/>
+<PasswordField
+  name={`${namePrefix}.keystoreKeyPassword`}
+  label="Keystore key password"
+  containerClass="col-span-2"
+  errors={errors?.keystoreKeyPassword || null}
+  required={false}
 />

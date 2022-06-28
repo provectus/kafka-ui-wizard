@@ -56,6 +56,8 @@
     reset();
   }
 
+  $: $data.securedWithSSL = $data.authMethod === 'SASL_SSL' || $data.securedWithSSL;
+
   const addBootstrapServer = (index: number) => () =>
     addField('bootstrapServers', NEW_CLUSTER_CONFIG.bootstrapServers, index);
   const removeBootstrapServer = (index: number) => () => unsetField(`bootstrapServers.${index}`);
@@ -74,6 +76,7 @@
         placeholder="local"
         errors={$errors.clusterName}
         hint="this name will help you recognize the cluster in the application interface"
+        required
       />
       <CheckboxField
         name="readonly"
@@ -82,7 +85,7 @@
       />
       <div class="col-span-6">
         <div class="flex flex-wrap items-baseline">
-          <Label forTarget="bootstrapServers">Bootstrap Servers</Label>
+          <Label forTarget="bootstrapServers" required>Bootstrap Servers</Label>
           <p class="text-xs text-gray-500">the list of Kafka brokers that you want to connect to</p>
         </div>
         <BootstrapServers
@@ -96,18 +99,6 @@
     </svelte:fragment>
   </FormSection>
 
-  <FormSection title="Cluster SSL encryption">
-    <svelte:fragment slot="form">
-      <CheckboxField name="securedWithSSL" label="Secured with SSL" />
-      {#if $data.securedWithSSL}
-        <CheckboxField name="selfSignedCA" label="Self-signed certificate" />
-        {#if $data.selfSignedCA}
-          <SslForm errors={$errors.selfSignedCASsl} namePrefix="selfSignedCASsl" />
-        {/if}
-      {/if}
-    </svelte:fragment>
-  </FormSection>
-
   <FormSection title="Authentication">
     <svelte:fragment slot="form">
       <SelectField
@@ -116,36 +107,59 @@
         containerClass="col-span-3"
         options={['None', 'SASL_SSL', 'SASL_PLAINTEXT']}
       />
-      {#if $data.authMethod === 'SASL_PLAINTEXT'}
+      {#if $data.authMethod === 'None'}
+        <CheckboxField name="securedWithSSL" label="Secured with SSL" />
+        {#if $data.securedWithSSL}
+          <CheckboxField name="selfSignedCA" label="Self-signed certificate" />
+          {#if $data.selfSignedCA}
+            <SslForm errors={$errors.selfSignedCASsl} namePrefix="selfSignedCASsl" />
+          {/if}
+        {/if}
+      {:else if $data.authMethod === 'SASL_PLAINTEXT'}
+        <TextField
+          name="saslJaasConfig"
+          label="sasl.jaas.config"
+          errors={$errors.saslJaasConfig}
+          required
+        />
+      {:else if $data.authMethod === 'SASL_SSL'}
+        {#if $data.securedWithSSL}
+          <CheckboxField name="selfSignedCA" label="Self-signed certificate" />
+          {#if $data.selfSignedCA}
+            <SslForm errors={$errors.selfSignedCASsl} namePrefix="selfSignedCASsl" />
+          {/if}
+        {/if}
         <SelectField
           name="saslMechanism"
           label="SASL Mechanism"
           containerClass="col-span-6"
-          options={['PLAIN', 'AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI']}
+          options={['AWS_MSK_IAM', 'SCRAM-SHA-256', 'SCRAM-SHA-512', 'GSSAPI']}
         />
-
-        {#if $data.saslMechanism === 'GSSAPI'}
-          <TextField
-            name="kerberosServiceName"
-            label="Kerberos Service Name"
-            errors={$errors.kerberosServiceName}
-          />
-        {/if}
-
-        {#if $data.saslMechanism === 'AWS_MSK_IAM'}
-          <CheckboxField name="useSpecificIAMProfile" label="Specific profile" />
-          {#if $data.useSpecificIAMProfile}
-            <TextField name="IAMProfile" label="Profile name" errors={$errors.IAMProfile} />
-          {/if}
-        {:else}
+        {#if $data.saslMechanism && ['GSSAPI', 'SCRAM-SHA-256', 'SCRAM-SHA-512'].includes($data.saslMechanism)}
           <TextField
             name="saslJaasConfig"
             label="sasl.jaas.config"
             errors={$errors.saslJaasConfig}
+            required
           />
+          {#if $data.saslMechanism === 'GSSAPI'}
+            <TextField
+              name="kerberosServiceName"
+              label="Kerberos Service Name"
+              errors={$errors.kerberosServiceName}
+            />
+          {/if}
+        {:else if $data.saslMechanism === 'AWS_MSK_IAM'}
+          <CheckboxField name="useSpecificIAMProfile" label="Specific profile" />
+          {#if $data.useSpecificIAMProfile}
+            <TextField
+              name="IAMProfile"
+              label="Profile name"
+              errors={$errors.IAMProfile}
+              required
+            />
+          {/if}
         {/if}
-      {:else if $data.authMethod === 'SASL_SSL'}
-        <SslForm errors={$errors.saslSSL} namePrefix="saslSSL" />
       {/if}
     </svelte:fragment>
   </FormSection>
